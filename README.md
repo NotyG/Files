@@ -8,7 +8,7 @@ https://serblog.ru/demo/tutorial_html/steps/6step2.html - html для чайни
 
 https://www.google.com/url?q=http://bit.ly/2P5OIgd&sa=D&source=editors&ust=1621263663292000&usg=AFQjCNEmiGUZaY9XvvMWh89IX44x-d192A
 
-http://bit.ly/2P5OIgd
+http://bit.ly/2P5OIgd -скачать образ ros + opencv2 for python2
 
 https://raspberrypi.stackexchange.com/questions/78673/is-there-a-raspbian-image-with-opencv-3-pre-installed
 
@@ -16,4 +16,6 @@ https://ru.stackoverflow.com/questions/702657/%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%
 
 https://coderoad.ru/35439819/%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D1%86%D0%B2%D0%B5%D1%82%D0%B0-%D0%BF%D0%B8%D0%BA%D1%81%D0%B5%D0%BB%D1%8F-%D0%B2-OpenCV-%D1%81-Python
 
-https://robotclass.ru/tutorials/opencv-python-find-contours/
+https://robotclass.ru/tutorials/opencv-python-find-contours/ - документация по аргументам фукнций контуров
+
+https://community-z.com/communities/python-saratov/articles/675 - примеры использования контуров, c объяснениями, и поиск момента(центр объекта) контура 
