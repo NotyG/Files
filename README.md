@@ -19,3 +19,5 @@ https://coderoad.ru/35439819/%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D
 https://robotclass.ru/tutorials/opencv-python-find-contours/ - документация по аргументам фукнций контуров
 
 https://community-z.com/communities/python-saratov/articles/675 - примеры использования контуров, c объяснениями, и поиск момента(центр объекта) контура 
+
+https://3d-diy.ru/wiki/arduino-moduli/radio-modul-nrf24l01/ - радиомодуль
