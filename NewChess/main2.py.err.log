@@ -1,0 +1,132 @@
+[Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED]
+['blue', 'green', 'yellow', 'red']
+['green', 'blue', 'yellow', 'red']
+s 1 1
+f 1 2
+l 1 3
+k 1 4
+on board s f l k 
+order    f s l k
+1 4
+2 2
+3 3
+pos 1 2
+robot cpos 0 2.5 2
+dir in getAngle 1
+angle 90
+in cells
+cpos 1 2
+path
+1 2
+2 2
+3 2
+4 2
+
+maze
+-1 -1 -1 -1 -1 -1
+-1 -2 -2 -2 -2 -1
+-1 0 0 0 0 -1
+-1 0 0 0 0 -1
+-1 0 0 0 0 -1
+-1 -1 -1 -1 -1 -1
+cdir 2
+dir in getAngle 2
+dir in getAngle 2
+dir in getAngle 2
+dir in getAngle 4
+dir after 1 4
+after movenear
+
+
+in 1 cycle
+maze
+-1 -1 -1 -1 -1 -1
+-1 -2 0 -2 -2 -1
+-1 0 0 0 0 -1
+-1 0 0 0 0 -1
+-1 0 -2 0 0 -1
+-1 -1 -1 -1 -1 -1
+
+cpos 3 2 
+endPos 1 1
+in align
+nextPos
+2 2
+4
+cdir
+4
+1
+after pathfind1
+dir in getAngle 4
+dir in getAngle 4
+dir in getAngle 1
+dir 1
+afterMove
+after pathfind2
+dir in getAngle 2
+dir in getAngle 2
+dir in getAngle 3
+dir in getAngle 3
+dir 3
+dir in getAngle 1
+alPos 3 2 1
+
+
+in 2 cycle
+maze
+-1 -1 -1 -1 -1 -1
+-1 0 0 -2 -2 -1
+-1 0 0 0 0 -1
+-1 0 0 -2 0 -1
+-1 0 -2 0 0 -1
+-1 -1 -1 -1 -1 -1
+
+cpos 3 2 
+endPos 1 3
+in align
+nextPos
+2 2
+4
+cdir
+1
+2
+after pathfind1
+dir in getAngle 4
+dir in getAngle 4
+dir in getAngle 3
+dir 3
+afterMove
+after pathfind2
+dir in getAngle 2
+dir 2
+dir in getAngle 4
+alPos 1 3 4
+
+
+in 3 cycle
+maze
+-1 -1 -1 -1 -1 -1
+-1 0 0 0 -2 -1
+-1 0 0 -2 0 -1
+-1 0 0 -2 0 -1
+-1 0 -2 0 0 -1
+-1 -1 -1 -1 -1 -1
+
+cpos 1 3 
+endPos 1 4
+in align
+nextPos
+1 4
+3
+cdir
+1
+2
+after pathfind1
+dir in getAngle 3
+dir 3
+afterMove
+after pathfind2
+dir in getAngle 1
+dir in getAngle 1
+dir in getAngle 2
+Program ended by stop button
