@@ -1,0 +1,17 @@
+[Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW]
+['red', 'blue', 'green', 'yellow']
+['blue', 'green', 'red', 'yellow']
+l 1 1
+k 1 2
+s 1 3
+f 1 4
+on board l k s f 
+order    s l k f
+2 4
+3 1
+3 3
+pos 1 3
+robot cpos 0 2.5 2
+dir in getAngle 3
+angle -90
+Program ended by stop button
