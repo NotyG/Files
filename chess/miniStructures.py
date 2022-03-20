@@ -5,7 +5,11 @@ class Position:
     def __init__(self, y, x):
         self.y = y
         self.x = x
-
+    def __eq__(self, other):
+        if type(other) == type(self):
+            if self.y == other.y and self.x == other.x:
+                return True
+        return False
 
 class Figure:
     def __init__(self, x,  type = None, order = None, y=1, yStart = None, xStart = None):

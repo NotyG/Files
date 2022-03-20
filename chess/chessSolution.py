@@ -2,7 +2,7 @@
 #!/usr/bin/env pybricks-micropython
 from miniStructures import Figure, Position
 from copy import deepcopy
-import pathFinder
+import pathFinderOld
 ##в программе для робота прописать import chessSolution
 ##todo оценить сложность алгоритма
 ##todo оценить потребление памяти
@@ -208,7 +208,7 @@ def isAllPathFree(*figures):
                        Position(figures[2].y, figures[2].x), Position(figures[3].y, figures[3].x) )
     currentPos = Position(figures[0]._yStart, figures[0]._xStart)
     for i in range(1, 3):
-        path, _ = pathFinder.findPath(deepcopy(maze), currentPos, figuresPosition[i])
+        path, _ = pathFinderOld.findPath(deepcopy(maze), currentPos, figuresPosition[i])
         if path == None: return False
         maze[currentPos.y][currentPos.x] = 0
         maze[figuresPosition[i].y][figuresPosition[i].x] = 'f'

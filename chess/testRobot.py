@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from miniStructures import Position
 from Robot import Robot
-import pathFinder
+import pathFinderOld
 import chessSolution
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
@@ -49,7 +49,7 @@ Position(4, 3), WEST,
 #path, _ = pathFinder.findPath(deepcopy(maze), Position(robot._currentPos.y, robot._currentPos.x), Position(solution[0].y, solution[0].x))
 
 endPos = Position(3, 2)
-path, _ = pathFinder.findPath(deepcopy(maze), robot._currentPos, endPos)
+path, _ = pathFinderOld.findPath(deepcopy(maze), robot._currentPos, endPos)
 
 robot.moveBy(path)
 

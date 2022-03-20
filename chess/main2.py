@@ -134,8 +134,9 @@ if __name__ == '__main__':
       # print('in cells')
       robot._currentDir = SOUTH
       robot.isHaveACube = True
-      path, trash = pathFinder.findPath(deepcopy(maze), Position(robot._currentPos.y, robot._currentPos.x), Position(solution[0].y, solution[0].x))
+      paths = pathFinder.findPath(deepcopy(maze), Position(robot._currentPos.y, robot._currentPos.x), Position(solution[0].y, solution[0].x))
       robot.isHaveACube = False
+      path = robot.chooseOptimalPath(paths)
       print('cpos', robot._currentPos.y, robot._currentPos.x)
       print('path')
       for pos in path:
@@ -169,7 +170,8 @@ if __name__ == '__main__':
             print('\ncpos', robot._currentPos.y, robot._currentPos.x, '\nendPos', solution[i]._yStart, solution[i]._xStart)
             if(solution[i]._yStart == solution[i].y and solution[i]._xStart == solution[i].x):
                   continue
-            path, _ = pathFinder.findPath(deepcopy(maze), robot._currentPos, Position(solution[i]._yStart, solution[i]._xStart))
+            paths = pathFinder.findPath(deepcopy(maze), robot._currentPos, Position(solution[i]._yStart, solution[i]._xStart))
+            path = robot.chooseOptimalPath(paths)
             # if i == 1: #выравниваемся после нулевого кубика
             #       robot.align(path[1]) #TODO 
             # if i < 4 and i!=1: #на выравнивание требуется время, без выравнивания робот ехать не будет - я переделал будет
@@ -179,7 +181,8 @@ if __name__ == '__main__':
             robot.isHaveACube = True
             print('dir', robot._currentDir)
             print('afterMove')
-            path, _ = pathFinder.findPath(deepcopy(maze), robot._currentPos, Position(solution[i].y, solution[i].x))
+            paths = pathFinder.findPath(deepcopy(maze), robot._currentPos, Position(solution[i].y, solution[i].x))
+            path = robot.chooseOptimalPath(path)
             #if robot._getTurnAngle
             print('after pathfind2')
             robot.moveBy(path)
@@ -199,7 +202,8 @@ if __name__ == '__main__':
       else:
             paths = [[],[],[],[]]
             for i in range(1, 5):
-                  paths[i-1], _ = pathFinder.findPath(maze, robot._currentPos, Position(1, i))
+                  pathsToPos = pathFinder.findPath(maze, robot._currentPos, Position(1, i))
+                  paths[i-1] = robot.chooseOptimalPath(pathsToPos)
             paths.sort(key = len)
                               # if len(paths) - paths.count([]) >= 2:
                   #       if len(paths[0]) >= len(paths[1]):

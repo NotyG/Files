@@ -36,7 +36,7 @@ class Robot:
 
     def _getTurnAngle(self, endPos):
         '''будет работать если x или y совпадает с позицией робота,
-        меняет _currentDir на новое, в соответсвии с новой позицией'''
+        Не меняет _currentDir на новое, это делает turn()'''
         # print(self._currentPos.y, self._currentPos.x)
         # print(endPos.y, endPos.x)
         dir = None
@@ -47,19 +47,53 @@ class Robot:
             turnAngle = 90 * (self._currentDir - dir)
             if abs(turnAngle) > 180: 
                 turnAngle = (360 - abs(turnAngle)) * ((-turnAngle) / abs(turnAngle))
-            self._currentDir = dir
+            #self._currentDir = dir
         # print('turnAngle', turnAngle)
         return turnAngle
+
+    def chooseOptimalPath(self, paths):
+        currentPos = self._currentPos
+        minStraights, minTurns = 10000,10000  #FIXME TODO не нейтральное, но путь не может быть меншье 100000
+        optimalPath = None
+        for path in paths:
+            currentStraights, currentTurns = self._countMoves(path)
+            if (currentStraights + currentTurns) < (minStraights + minTurns): #currentstraight всегда одинаковый - предположение
+                optimalPath = path
+                # if currentTurns < minTurns:
+                #     optimalPath = path
+        return optimalPath
+
+    def _countMoves(self, path):
+        currentPos = self._currentPos
+        countOfStraights = 0
+        countOfTurns = 0
+        for pos in path:
+            if pos.x == self._currentPos.x and pos.y == self._currentPos.y:
+                continue
+            angle = self._getTurnAngle(pos)
+            if angle == 180 and not self.isHaveACube:
+                #self._cellMoveBack()
+                countOfStraights += 1
+            else:
+                countOfTurns += abs(angle//90)
+                countOfStraights += 1
+                #self.turn(angle) #self._getTurnAngle(endPos)
+                #self._cellMove()
+            self._currentPos = pos
+        self._currentPos = currentPos
+        return countOfStraights, countOfTurns
 
     def moveToNearPosition(self, endPos):
         if endPos.x == self._currentPos.x and endPos.y == self._currentPos.y:
             return None
-        dir = self._getAbsDirOfPosition(endPos)
-        print(dir)
-        if abs(self._currentDir - dir) == 2 and not self.isHaveACube: #направления противоположны
+        #dir = self._getAbsDirOfPosition(endPos)
+        #print(dir)
+        #if abs(self._currentDir - dir) == 2 and not self.isHaveACube: #направления противоположны
+        angle = self._getTurnAngle(endPos)
+        if angle == 180 and not self.isHaveACube:
             self._cellMoveBack()
         else:
-            self.turn(self._getTurnAngle(endPos))
+            self.turn(angle) #self._getTurnAngle(endPos)
             self._cellMove()
         self._currentPos = endPos
     
@@ -88,6 +122,7 @@ class Robot:
             dir = 1
         elif angle < 0:
             dir = -1
+        self._currentDir = self._getDirAfterTurn(angle)
         self.gyro_sensor.reset_angle(0)
         self.driveBase.stop()
         #print('afterStop')
@@ -201,12 +236,12 @@ class Robot:
 
     def _getDirAfterTurn(self, angle):
         '''pls angle only multiple to 90'''
+        #список имитирует стрелку, если добавить 1 к северу, то окажешься на другой стороне списка, то есть на востоке
         directions = [self.east, self.south, self.west, self.north]
         angle = angle // 90
         newDir = (abs(angle) % 4) * (angle // abs(angle)) + directions.index(self._currentDir)
         newDir = newDir % 4
         return directions[newDir]
-
 
     def _align(self, dirOfAlign = 1, nextPos = None):
         self.goToBorder()
@@ -280,7 +315,7 @@ class Robot:
         '''mode = 1 if you want to disable inside cycle\n
             side - where is the line?\n
             right: side= -1 \n
-            left:side = -1'''
+            left: side = -1'''
         RED = 70
         WHITE = 90
         threshold = RED #95  # (RED + WHITE) / 2
@@ -301,16 +336,14 @@ class Robot:
             self.driveBase.drive(velocity, turn_rate)
         
     def goToBorder(self, velocity = None, dir = 1):
-        '''its work in white and black colors, other colors dont work'''
+        '''its work in white and black colors, other colors dont work'''\
+        #утверждение выше требует проверки, так как код изменился полностью
         velocity = velocity or self.baseSpeed
         nowColor = (self.line_sensor_right.reflection() + self.line_sensor_left.reflection()) / 2
         #print('nowcolor', nowColor)
         while( abs(self.line_sensor_left.reflection() - nowColor) < self.coincidence
             and abs(self.line_sensor_right.reflection() - nowColor) < self.coincidence):
             self.driveBase.drive(velocity*dir, 0)
-
-        
-
         self.driveBase.stop()
         self.fastStop()
         # print(self.line_sensor_left.reflection() - nowColor, self.line_sensor_right.reflection() - nowColor)
@@ -345,8 +378,6 @@ class Robot:
         self.left_motor.stop()
         self.right_motor.stop()
 
-    #TODO не будет работать если изначальное направление против стрелки
-    #FIXME и так не работает
     def _cellMoveBack(self):
         self.goToBorder(None, -1)
         self.driveBase.straight(-90)

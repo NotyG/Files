@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from sys import exit
 from copy import deepcopy
-import chessSolution, pathFinder
+import chessSolution, pathFinderOld
 from miniStructures import Position, Figure
 from Robot import Robot
 #не забыть сменить расшифровку цветов в фигуры
@@ -112,7 +112,7 @@ if __name__ == '__main__':
      # robot.turnSpeed = 120
       print('in cells')
       robot._currentDir = SOUTH
-      path, trash = pathFinder.findPath(deepcopy(maze), Position(robot._currentPos.y, robot._currentPos.x), Position(solution[0].y, solution[0].x))
+      path, trash = pathFinderOld.findPath(deepcopy(maze), Position(robot._currentPos.y, robot._currentPos.x), Position(solution[0].y, solution[0].x))
       print('cpos', robot._currentPos.y, robot._currentPos.x)
       print('path')
       for pos in path:
@@ -146,7 +146,7 @@ if __name__ == '__main__':
             print('\ncpos', robot._currentPos.y, robot._currentPos.x, '\nendPos', solution[i]._yStart, solution[i]._xStart)
             if(solution[i]._yStart == solution[i].y and solution[i]._xStart == solution[i].x):
                   continue
-            path, _ = pathFinder.findPath(deepcopy(maze), robot._currentPos, Position(solution[i]._yStart, solution[i]._xStart))
+            path, _ = pathFinderOld.findPath(deepcopy(maze), robot._currentPos, Position(solution[i]._yStart, solution[i]._xStart))
             if i == 1: #выравниваемся после нулевого кубика
                   robot.align(path[1]) 
             if i < 4 and i!=1: #на выравнивание требуется время, без выравнивания робот ехать не будет
@@ -155,7 +155,7 @@ if __name__ == '__main__':
             robot.moveBy(path)
             print('dir', robot._currentDir)
             print('afterMove')
-            path, _ = pathFinder.findPath(deepcopy(maze), robot._currentPos, Position(solution[i].y, solution[i].x))
+            path, _ = pathFinderOld.findPath(deepcopy(maze), robot._currentPos, Position(solution[i].y, solution[i].x))
             print('after pathfind2')
             robot.moveBy(path)
             print('dir', robot._currentDir)
@@ -173,7 +173,7 @@ if __name__ == '__main__':
       else:
             paths = [[],[],[],[]]
             for i in range(1, 5):
-                  paths[i-1], _ = pathFinder.findPath(maze, robot._currentPos, Position(1, i))
+                  paths[i-1], _ = pathFinderOld.findPath(maze, robot._currentPos, Position(1, i))
                   if i >= 2:
                         if len(paths[i-1]) >= len(paths[i-2]):
                               paths.remove(paths[i-1])
